@@ -20,6 +20,13 @@ app.post(
   controllers.createUser,
 );
 
+app.post(
+  '/login',
+  middlewares.validateEmail,
+  middlewares.validatePassword,
+  controllers.login,
+);
+
 app.use(middlewares.errorHandle);
 
 app.listen(PORT, () => console.log('ouvindo porta 3000!'));
