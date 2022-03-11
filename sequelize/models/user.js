@@ -1,12 +1,6 @@
 const { DataTypes } = require('sequelize');
 
 const userConfig = {
-    id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
       displayName: {
         allowNull: false,
         type: DataTypes.STRING,
@@ -27,14 +21,13 @@ const userConfig = {
 };
 
 const User = (sequelize) => {
-    const userCreate = sequelize.define('User', {
-      userConfig,
-    }, {
-        tableName: 'Users',
+    const userCreate = sequelize.define('User', userConfig,
+    {
+      tableName: 'Users',
     });
 
     userCreate.associate = (models) => {
-        userCreate.hasMany(models.BlogPosts, { foreingKey: 'id', as: 'posts' });
+        userCreate.hasMany(models.BlogPost, { foreingKey: 'id', as: 'posts' });
     };
       return userCreate;
   };

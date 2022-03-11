@@ -36,14 +36,13 @@ const blogPostConfig = {
 };
 
 const BlogPost = (sequelize) => {
-    const blogPost = sequelize.define('BlogPosts', {
-         blogPostConfig,
-    }, {
-        tableName: 'BlogPost',
+    const blogPost = sequelize.define('BlogPost', blogPostConfig,
+    {
+      tableName: 'BlogPost',
     });
 
     blogPost.associatem = (models) => {
-        blogPost.belongsTo(models.Users, { foreingKey: 'id', as: 'userId' });
+        blogPost.belongsTo(models.Users, { foreingKey: 'userId', as: 'user' });
     };
     return blogPost;
   };
