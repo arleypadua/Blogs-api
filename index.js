@@ -33,6 +33,12 @@ app.get(
   controllers.listUser,
 );
 
+app.get(
+  '/user/:id', 
+  middlewares.authorizationToken, 
+  controllers.getUserById,
+);
+
 app.use(middlewares.errorHandle);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
