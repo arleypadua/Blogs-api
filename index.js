@@ -27,6 +27,12 @@ app.post(
   controllers.login,
 );
 
+app.get(
+  '/user',
+  middlewares.authorizationToken,
+  controllers.listUser,
+);
+
 app.use(middlewares.errorHandle);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
