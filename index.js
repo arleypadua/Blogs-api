@@ -40,6 +40,12 @@ app.get(
 );
 
 app.get(
+  '/categories',
+  middlewares.authorizationToken,
+  controllers.listCategory,
+);
+
+app.get(
   '/user/:id', 
   middlewares.authorizationToken, 
   controllers.getUserById,

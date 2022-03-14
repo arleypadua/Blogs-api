@@ -15,4 +15,17 @@ const createCategory = async (req, res, next) => {
     }
 };
 
-module.exports = createCategory;
+const listCategory = async (_req, res, next) => {
+    try {
+      const categories = await Category.findAll();
+  
+      return res.status(200).json(categories);
+    } catch (err) {
+        next(err);
+    }
+  };
+
+module.exports = {
+    createCategory,
+    listCategory,
+};
