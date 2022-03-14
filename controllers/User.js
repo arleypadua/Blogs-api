@@ -46,8 +46,22 @@ const getUserById = async (req, res, next) => {
     }
 };
 
+const deleteUser = async (req, res, next) => {
+    try {
+        const userId = req.tokenData.id;
+        const user = await User.findByPk(userId);
+        
+        await user.destroy();
+
+        return res.status(204).end();
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     getUserById,
     createUser,
     listUser,
+    deleteUser,
 };

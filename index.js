@@ -77,6 +77,12 @@ app.delete(
   controllers.deleteBlogPost,
 );
 
+app.delete(
+  '/user/me', 
+  middlewares.authorizationToken,
+  controllers.deleteUser,
+);
+
 app.use(middlewares.errorHandle);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
