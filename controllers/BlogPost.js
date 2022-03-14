@@ -56,8 +56,31 @@ const getBlogPostById = async (req, res, next) => {
   }
 };
 
+const deleteBlogPost = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const blogPost = await BlogPost.findByPk(id);
+      const userId = req.tokenData.id;
+
+      if (!blogPost) {
+        return res.status(404).json({ message: 'Post does not exist' });
+      }
+
+      if (blogPost.userId !== userId) {
+        return res.status(401).json({ message: 'Unauthorized user' });
+      }
+
+      await blogPost.destroy();
+
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+  }
+};
+
 module.exports = {
   createBlogPost,
   listBlogPost,
   getBlogPostById,
+  deleteBlogPost,
 }; 

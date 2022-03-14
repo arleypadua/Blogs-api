@@ -71,6 +71,12 @@ app.get(
   controllers.getBlogPostById,
 );
 
+app.delete(
+  '/post/:id', 
+  middlewares.authorizationToken,
+  controllers.deleteBlogPost,
+);
+
 app.use(middlewares.errorHandle);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
