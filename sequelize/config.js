@@ -8,7 +8,6 @@ module.exports = {
     host: process.env.HOSTNAME,
     dialect: 'mysql',
     define: {
-      underscore: true,
       timestamps: false,
     },
   },

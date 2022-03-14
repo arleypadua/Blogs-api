@@ -27,6 +27,12 @@ app.post(
   controllers.login,
 );
 
+app.post(
+  '/categories',
+  middlewares.authorizationToken,
+  controllers.createCategory,
+);
+
 app.get(
   '/user',
   middlewares.authorizationToken,

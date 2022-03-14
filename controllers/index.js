@@ -1,11 +1,11 @@
-const createUser = require('./createUser');
 const login = require('./login');
-const listUser = require('./listUser');
-const getUserById = require('./getUserById');
+const createCategory = require('./Category');
+const { getUserById, listUser, createUser } = require('./User');
 
 module.exports = {
     createUser,
     login,
     listUser,
     getUserById,
+    createCategory,
 };
