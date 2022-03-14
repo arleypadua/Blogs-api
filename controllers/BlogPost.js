@@ -13,8 +13,8 @@ const createBlogPost = async (req, res, next) => {
       content, 
       userId: id, 
       categoryIds, 
-      published: JSON.stringify(new Date()), 
-      updated: JSON.stringify(new Date()),
+      published: new Date(), 
+      updated: new Date(),
     });
 
     return res.status(201).json({ id: createPost.id, userId: id, title, content });
