@@ -65,6 +65,12 @@ app.get(
   controllers.getUserById,
 );
 
+app.get(
+  '/post/:id', 
+  middlewares.authorizationToken,
+  controllers.getBlogPostById,
+);
+
 app.use(middlewares.errorHandle);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));

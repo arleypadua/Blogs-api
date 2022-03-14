@@ -27,7 +27,7 @@ const listBlogPost = async (req, res, next) => {
   try {
     const posts = await BlogPost.findAll({
       include: [
-        { model: User, as: 'user' },
+        { model: User, as: 'user', attributes: { exlude: ['password'] } },
         { model: Category, as: 'categories' },
       ],
     });
@@ -37,7 +37,27 @@ const listBlogPost = async (req, res, next) => {
   }
 };
 
+const getBlogPostById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const postId = await BlogPost.findByPk(id, {
+      include: [
+        { model: User, as: 'user', attributes: { exlude: ['password'] } },
+        { model: Category, as: 'categories' },
+      ],
+    });
+    if (!postId) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    return res.status(200).json(postId);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createBlogPost,
   listBlogPost,
+  getBlogPostById,
 }; 
