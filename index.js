@@ -54,6 +54,12 @@ app.get(
 );
 
 app.get(
+  '/post',
+  middlewares.authorizationToken,
+  controllers.listBlogPost,
+);
+
+app.get(
   '/user/:id', 
   middlewares.authorizationToken, 
   controllers.getUserById,
