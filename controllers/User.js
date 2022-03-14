@@ -9,14 +9,14 @@ const createUser = async (req, res, next) => {
 
         if (findEmail) return res.status(409).json({ message: 'User already registered' });
 
-        await User.create({
+        const userCreated = await User.create({
             displayName,
             email,
             password,
             image,
         });
 
-        const tokenCreated = tokenGenerate({ displayName, email, image });
+        const tokenCreated = tokenGenerate({ id: userCreated.id, email });
 
         return res.status(201).json({ token: tokenCreated });
     } catch (err) {

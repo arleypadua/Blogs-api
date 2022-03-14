@@ -22,7 +22,7 @@ app.post(
 
 app.post(
   '/login',
-  middlewares.validateEmail,
+  middlewares.validateLogin,
   middlewares.validatePassword,
   controllers.login,
 );
@@ -31,6 +31,14 @@ app.post(
   '/categories',
   middlewares.authorizationToken,
   controllers.createCategory,
+);
+
+app.post(
+  '/post',
+  middlewares.authorizationToken,
+  middlewares.validateBlogPost,
+  middlewares.validateCategory,
+  controllers.createBlogPost,
 );
 
 app.get(

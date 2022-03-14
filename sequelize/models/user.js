@@ -1,6 +1,12 @@
 const { DataTypes } = require('sequelize');
 
 const userConfig = {
+      id: {
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+      },
       displayName: {
         allowNull: false,
         type: DataTypes.STRING,

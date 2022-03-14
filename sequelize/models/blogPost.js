@@ -19,7 +19,7 @@ const blogPostConfig = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'User',
+          model: 'Users',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -27,22 +27,22 @@ const blogPostConfig = {
       },
       published: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
       }, 
       updated: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
       },
 };
 
 const BlogPost = (sequelize) => {
     const blogPost = sequelize.define('BlogPost', blogPostConfig,
     {
-      tableName: 'BlogPost',
+      tableName: 'BlogPosts',
     });
 
-    blogPost.associatem = (models) => {
-        blogPost.belongsTo(models.Users, { foreingKey: 'userId', as: 'user' });
+    blogPost.associate = (models) => {
+        blogPost.belongsTo(models.User, { foreingKey: 'userId', as: 'user' });
     };
     return blogPost;
   };
