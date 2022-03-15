@@ -41,13 +41,17 @@ const updateBlogPost = async (req, res, next) => {
     const { id } = req.params;
     const { title, content } = req.body;
     const userId = req.tokenData.id;
+    
     const blogPost = await BlogPost.findByPk(id, {
       attributes: { exclude: ['id', 'published', 'updated'] },
       include: { model: Category, as: 'categories' },
     });
+
     if (!blogPost) return res.status(404).json({ message: 'Post does not exist' });
     if (blogPost.userId !== userId) res.status(401).json({ message: 'Unauthorized user' });
+
     await BlogPost.update({ title, content }, { where: { id } });
+
     return res.status(200).json({ 
       userId: blogPost.userId, title, content, categories: blogPost.categories });
   } catch (err) {
