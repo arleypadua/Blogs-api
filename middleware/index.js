@@ -6,6 +6,7 @@ const validateLogin = require('./validateLogin');
 const authorizationToken = require('./authorizationToken');
 const validateBlogPost = require('./validateBlogPost');
 const validateCategory = require('./validateCategory');
+const validateBlogPostUpdate = require('./validateBlogPostUpdate');
 
 module.exports = {
     errorHandle,
@@ -16,4 +17,5 @@ module.exports = {
     authorizationToken,
     validateBlogPost,
     validateCategory,
+    validateBlogPostUpdate,
 };

@@ -16,6 +16,7 @@ const {
     createBlogPost,
     listBlogPost,
     getBlogPostById,
+    updateBlogPost,
     deleteBlogPost,
 } = require('./BlogPost');
 
@@ -31,4 +32,5 @@ module.exports = {
     getBlogPostById,
     deleteBlogPost,
     deleteUser,
+    updateBlogPost,
 };

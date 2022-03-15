@@ -41,6 +41,13 @@ app.post(
   controllers.createBlogPost,
 );
 
+app.put(
+  '/post/:id',
+  middlewares.authorizationToken,
+  middlewares.validateBlogPostUpdate,
+  controllers.updateBlogPost,
+);
+
 app.get(
   '/user',
   middlewares.authorizationToken,
