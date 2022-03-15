@@ -67,6 +67,12 @@ app.get(
 );
 
 app.get(
+  '/post/search/',
+  middlewares.authorizationToken,
+  controllers.searchBlogPost,
+);
+
+app.get(
   '/user/:id', 
   middlewares.authorizationToken, 
   controllers.getUserById,

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost } = require('../sequelize/models');
 const { Category } = require('../sequelize/models');
 const { User } = require('../sequelize/models');
@@ -41,7 +42,7 @@ const updateBlogPost = async (req, res, next) => {
     const { id } = req.params;
     const { title, content } = req.body;
     const userId = req.tokenData.id;
-    
+
     const blogPost = await BlogPost.findByPk(id, {
       attributes: { exclude: ['id', 'published', 'updated'] },
       include: { model: Category, as: 'categories' },
@@ -100,10 +101,32 @@ const deleteBlogPost = async (req, res, next) => {
   }
 };
 
+const searchBlogPost = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+    if (!q) {
+      const allPosts = await BlogPost.findAll({
+        include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories', through: { attributes: [] } }],
+      });
+      return res.status(200).json(allPosts);
+    }
+    const postToSearch = await BlogPost.findAll({
+      where: { [Op.or]: [{ title: q }, { content: q }] },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    return res.status(200).json(postToSearch);
+  } catch (error) { next(error); }
+};
+
 module.exports = {
   createBlogPost,
   listBlogPost,
   getBlogPostById,
   deleteBlogPost,
   updateBlogPost,
+  searchBlogPost,
 }; 
