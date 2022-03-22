@@ -36,7 +36,9 @@ const listUser = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const [user] = await await User.findAll({ where: { id } });
+        // dois awaits :) 
+        // parece que falta o valor do id no where
+        const [user] = await User.findAll({ where: { id: id } });
 
         if (!user) return res.status(404).json({ message: 'User does not exist' });
 
