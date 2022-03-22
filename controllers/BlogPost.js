@@ -51,7 +51,8 @@ const updateBlogPost = async (req, res, next) => {
     if (!blogPost) return res.status(404).json({ message: 'Post does not exist' });
     if (blogPost.userId !== userId) res.status(401).json({ message: 'Unauthorized user' });
 
-    await BlogPost.update({ title, content }, { where: { id } });
+    // parece que falta o valor do id no where
+    await BlogPost.update({ title, content }, { where: { id: id } });
 
     return res.status(200).json({ 
       userId: blogPost.userId, title, content, categories: blogPost.categories });
